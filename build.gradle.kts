@@ -27,6 +27,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation(kotlin("stdlib-jdk8"))
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
 }
 
 tasks.withType<Test> {
