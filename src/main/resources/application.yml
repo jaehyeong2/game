@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    group:
+      production:
+        - production
+      develop:
+        - develop
+      local:
+        - local
+      default: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+#aws:
+#  sesv2:
+#    region: ap-northeast-2
+#
+#springdoc:
+#  use-fqn: true
+
+management:
+  endpoint:
+    health:
+      enabled: true
+
+  # ?? ???? ? ????
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#    enabled-by-default: false
