@@ -2,6 +2,7 @@ package jjfactory.game.item.domain
 
 import jakarta.persistence.*
 
+@Table(name = "items    ")
 @Entity
 class Item(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +16,6 @@ class Item(
 ) {
 
     enum class Type {
-
+        HAT, TOP, FOOT, BOTTOM
     }
 }
