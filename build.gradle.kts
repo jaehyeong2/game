@@ -28,6 +28,10 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation(kotlin("stdlib-jdk8"))
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	implementation("com.squareup.retrofit2:retrofit:2.9.0")
+	implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+	implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 }
 
 tasks.withType<Test> {
