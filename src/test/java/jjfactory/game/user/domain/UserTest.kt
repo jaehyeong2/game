@@ -12,7 +12,7 @@ class UserTest{
     @BeforeEach
     fun init(){
         val entityFactory = EntityFactory()
-        user = entityFactory.createUser()
+        user = entityFactory.createNoPointUser()
         user.money = 1000
     }
 

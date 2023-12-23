@@ -1,10 +1,12 @@
 package jjfactory.game
 
 import jjfactory.game.user.domain.User
+import org.springframework.boot.test.context.TestComponent
 
+@TestComponent
 class EntityFactory {
 
-    fun createUser(): User {
+    fun createNoPointUser(): User {
         return User(
             username = "kim",
             password = "123",
