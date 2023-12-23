@@ -1,6 +1,7 @@
 package jjfactory.game.user.domain.stage
 
 import jakarta.persistence.*
+import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 
 @Table(
@@ -16,6 +17,7 @@ class StageClear(
 
     // 클리어 시간
     val clearTime: LocalDateTime = LocalDateTime.now(),
-    val playTime: LocalDateTime
+    @Comment("ms 단위")
+    val playTime: Int
 ) {
 }
