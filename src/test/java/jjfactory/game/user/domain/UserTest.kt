@@ -31,12 +31,12 @@ class UserTest {
             password = "123",
             level = 2,
             exp = 100,
-            point = 1000
+            money = 1000
         )
 
-        user.decreasePoint(500)
+        user.decreaseMoney(500)
 
-        assertThat(user.point).isEqualTo(500)
+        assertThat(user.money).isEqualTo(500)
     }
 
     @Test
@@ -46,11 +46,11 @@ class UserTest {
             password = "123",
             level = 2,
             exp = 100,
-            point = 1000
+            money = 1000
         )
 
         assertThatThrownBy {
-            user.decreasePoint(10000)
+            user.decreaseMoney(10000)
         }.isInstanceOf(RuntimeException::class.java)
 
     }

@@ -1,10 +1,6 @@
 package jjfactory.game.user.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Table(name = "users")
 @Entity
@@ -18,25 +14,25 @@ class User(
     var level: Int = 1,
     var exp: Int = 0,
 
-    var point: Long = 0,
+    var money: Long = 0,
 
     // 반정규화
     var clearStageLevel: Int = 0
 ) {
 
     fun levelUp() {
-        if(exp == 100){
+        if (exp == 100) {
             level++
             exp = 0
         }
     }
 
-    fun increasePoint(num: Int){
-        point += num
+    fun increaseMoney(num: Int) {
+        money += num
     }
 
-    fun decreasePoint(num: Int){
-        if(point < num) throw RuntimeException("부족")
-        point -= num
+    fun decreaseMoney(num: Int) {
+        if (money < num) throw RuntimeException("부족")
+        money -= num
     }
 }

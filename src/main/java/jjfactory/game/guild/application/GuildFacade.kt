@@ -19,7 +19,7 @@ class GuildFacade(
     @Transactional
     fun createGuild(command: GuildCommand.Create, userId: Long): Long {
         val user = userReader.findById(userId)
-        user.decreasePoint(GUILD_CREATE_COST)
+        user.decreaseMoney(GUILD_CREATE_COST)
 
         if(guildReader.existByName(command.name)) throw RuntimeException("중복")
 

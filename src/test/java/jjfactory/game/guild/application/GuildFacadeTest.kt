@@ -35,7 +35,7 @@ class GuildFacadeTest {
             password = "123",
             level = 2,
             exp = 100,
-            point = 1000
+            money = 1000
         )
 
         val user = userRepository.save(initUser)
@@ -65,7 +65,7 @@ class GuildFacadeTest {
             password = "123",
             level = 2,
             exp = 100,
-            point = 50000
+            money = 50000
         )
 
         val user = userRepository.save(initUser)
@@ -88,7 +88,7 @@ class GuildFacadeTest {
             password = "123",
             level = 2,
             exp = 100,
-            point = 50000
+            money = 50000
         )
 
         val user = userRepository.save(initUser)
@@ -96,6 +96,6 @@ class GuildFacadeTest {
         val result = guildFacade.createGuild(initGuild, user.id!!)
 
         assertThat(result).isNotNull
-        assertThat(user.point).isEqualTo(0)
+        assertThat(user.money).isEqualTo(0)
     }
 }
