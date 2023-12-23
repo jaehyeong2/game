@@ -18,6 +18,8 @@ class User(
     var level: Int = 1,
     var exp: Int = 0,
 
+    var point: Long = 0,
+
     // 반정규화
     var clearStageLevel: Int = 0
 ) {
@@ -27,5 +29,9 @@ class User(
             level++
             exp = 0
         }
+    }
+
+    fun addPoint(num: Int){
+        point += num
     }
 }
