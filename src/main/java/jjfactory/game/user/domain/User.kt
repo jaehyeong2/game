@@ -36,7 +36,7 @@ class User(
     }
 
     fun decreasePoint(num: Int){
-        if(point <= num) throw RuntimeException("빙요 부족")
+        if(point < num) throw RuntimeException("부족")
         point -= num
     }
 }
