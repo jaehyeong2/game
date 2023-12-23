@@ -31,7 +31,12 @@ class User(
         }
     }
 
-    fun addPoint(num: Int){
+    fun increasePoint(num: Int){
         point += num
+    }
+
+    fun decreasePoint(num: Int){
+        if(point <= num) throw RuntimeException("빙요 부족")
+        point -= num
     }
 }
