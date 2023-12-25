@@ -43,5 +43,9 @@ class EventService(
         if (redisTemplate.opsForSet().size(key) >= event.stock) throw RuntimeException()
 
         redisTemplate.opsForSet().add(key, userId.toString())
+
+        //todo rdb에 저장.
+        //todo redis -failover전략
+        //todo rdb에 저장하는건 비동기로?
     }
 }
