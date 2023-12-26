@@ -1,8 +1,9 @@
-package jjfactory.game.event.application
+package jjfactory.game.daily_event.application
 
 import jjfactory.game.EntityFactory
-import jjfactory.game.event.domain.DailyEventRepository
-import jjfactory.game.event.exception.AlreadyJoinedException
+import jjfactory.game.daily_event.domain.DailyEventRepository
+import jjfactory.game.daily_event.exception.AlreadyJoinedException
+import jjfactory.game.daily_event.exception.SoldOutException
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -50,7 +51,7 @@ class EventServiceTest {
 
     @Transactional
     @Test
-    fun `동일 이벤트 중복참여는 불가능하다`() {
+    fun `동일 이벤트 중복참여시 익셉션`() {
         //given
         val initEvent = entityFactory.createEvent()
         initEvent.open()
@@ -80,6 +81,42 @@ class EventServiceTest {
         //then
         var key = "event-stock"
         assertThat(redisTemplate.opsForSet().isMember(key, "2")).isTrue
+    }
+
+    @Transactional
+    @Test
+    fun `재고 없으면 참여 시 exception`() {
+        //given
+        val initEvent = entityFactory.createEvent()
+        initEvent.open()
+
+        val event = eventRepository.save(initEvent)
+        val stock = event.stock
+
+        //expected
+        assertThatThrownBy {
+            for (i in 1 .. stock+1){
+                eventService.joinEvent(event.id!!, i.toLong())
+            }
+        }.isInstanceOf(SoldOutException::class.java)
+    }
+
+    @Transactional
+    @Test
+    fun `재고 없으면 참여 시 exception2`() {
+        //given
+        val initEvent = entityFactory.createEvent(1000)
+        initEvent.open()
+
+        val event = eventRepository.save(initEvent)
+        val stock = event.stock
+
+        //expected
+        assertThatThrownBy {
+            for (i in 1 .. stock+1){
+                eventService.joinEvent(event.id!!, i.toLong())
+            }
+        }.isInstanceOf(SoldOutException::class.java)
     }
 
 }

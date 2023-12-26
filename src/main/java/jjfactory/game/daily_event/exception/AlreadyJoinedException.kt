@@ -1,4 +1,4 @@
-package jjfactory.game.event.exception
+package jjfactory.game.daily_event.exception
 
 class AlreadyJoinedException : RuntimeException(){
 }

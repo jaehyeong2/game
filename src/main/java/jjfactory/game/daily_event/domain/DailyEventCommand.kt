@@ -1,4 +1,4 @@
-package jjfactory.game.event.domain
+package jjfactory.game.daily_event.domain
 
 class DailyEventCommand {
     data class Create(

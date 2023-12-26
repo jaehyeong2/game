@@ -1,9 +1,10 @@
-package jjfactory.game.event.domain
+package jjfactory.game.daily_event.domain
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jjfactory.game.daily_event.exception.SoldOutException
 import org.hibernate.annotations.CreationTimestamp
 import java.time.LocalDateTime
 
@@ -26,5 +27,10 @@ class DailyEvent(
             isOn = true
             startedAt = LocalDateTime.now()
         }
+    }
+
+    fun decreaseStock(){
+        if(stock <= 0) throw SoldOutException()
+        stock--
     }
 }
