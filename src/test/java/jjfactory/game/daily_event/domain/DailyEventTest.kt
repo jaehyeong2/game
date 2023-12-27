@@ -42,7 +42,7 @@ class DailyEventTest {
         val entityFactory = EntityFactory()
 
         //given
-        val event = entityFactory.createEvent(qty = 0)
+        val event = entityFactory.createEvent(stock = 0)
 
         //expected
         assertThatThrownBy{

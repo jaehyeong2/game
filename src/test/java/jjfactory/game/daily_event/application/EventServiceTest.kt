@@ -28,11 +28,11 @@ class EventServiceTest {
     @Autowired
     lateinit var redisTemplate: RedisTemplate<String, String>
 
+    var key = "event-stock"
+
     @BeforeEach
-    fun clear() {
-        redisTemplate.execute {
-            it.flushAll()
-        }
+    fun tearDown() {
+        redisTemplate.delete(key)
     }
 
     @Transactional
@@ -79,7 +79,6 @@ class EventServiceTest {
         eventService.joinEvent(event.id!!, 2L)
 
         //then
-        var key = "event-stock"
         assertThat(redisTemplate.opsForSet().isMember(key, "2")).isTrue
     }
 
@@ -88,24 +87,6 @@ class EventServiceTest {
     fun `재고 없으면 참여 시 exception`() {
         //given
         val initEvent = entityFactory.createEvent()
-        initEvent.open()
-
-        val event = eventRepository.save(initEvent)
-        val stock = event.stock
-
-        //expected
-        assertThatThrownBy {
-            for (i in 1 .. stock+1){
-                eventService.joinEvent(event.id!!, i.toLong())
-            }
-        }.isInstanceOf(SoldOutException::class.java)
-    }
-
-    @Transactional
-    @Test
-    fun `재고 없으면 참여 시 exception2`() {
-        //given
-        val initEvent = entityFactory.createEvent(1000)
         initEvent.open()
 
         val event = eventRepository.save(initEvent)
