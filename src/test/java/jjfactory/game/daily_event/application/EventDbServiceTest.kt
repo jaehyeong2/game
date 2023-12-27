@@ -71,7 +71,7 @@ class EventDbServiceTest {
 
     @Transactional
     @Test
-    fun `값 정상 추가`() {
+    fun `이벤트 참여 성공 시 user의 money가 오르고 로그가 저장된다`() {
         //given
         val initUser = entityFactory.createNoPointUser(money = 0)
         val user = userRepository.save(initUser)
