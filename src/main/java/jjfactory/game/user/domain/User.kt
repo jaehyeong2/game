@@ -20,10 +20,19 @@ class User(
     var clearStageLevel: Int = 0
 ) {
 
-    fun levelUp() {
-        if (exp == 100) {
+    fun increaseExp(point: Int){
+        if (point <= 0) throw IllegalArgumentException()
+        exp += point
+
+        if (exp >= 100){
+            levelUp()
+        }
+    }
+
+    private fun levelUp() {
+        if (exp >= 100) {
             level++
-            exp = 0
+            exp -= 100
         }
     }
 
