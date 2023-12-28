@@ -1,13 +1,10 @@
 package jjfactory.game.stage.application
 
 import jjfactory.game.EntityFactory
-import jjfactory.game.stage.domain.Chapter
 import jjfactory.game.stage.domain.ChapterRepository
-import jjfactory.game.stage.domain.Stage
 import jjfactory.game.stage.domain.StageRepository
 import jjfactory.game.stage.domain.clear.StageClearCommand
 import jjfactory.game.user.domain.UserRepository
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -33,7 +30,7 @@ class StageClearFacadeTest {
     lateinit var entityFactory: EntityFactory
 
     @Autowired
-    lateinit var redisTemplate: RedisTemplate<String, Long>
+    lateinit var redisTemplate: RedisTemplate<String, String>
 
     @BeforeEach
     fun init(){
@@ -48,14 +45,14 @@ class StageClearFacadeTest {
         val initChapter = entityFactory.createChapter()
         val chapter = chapterRepository.save(initChapter)
 
-        val initStage = entityFactory.createStage(chapter)
+        val initStage = entityFactory.createStage(chapter, ordering = 9)
         val stage = stageRepository.save(initStage)
-        val initStage2 = entityFactory.createStage(chapter)
+        val initStage2 = entityFactory.createStage(chapter, ordering = 10)
         val stage2 = stageRepository.save(initStage2)
 
-        val initUser = entityFactory.createNoPointUser()
+        val initUser = entityFactory.createUser(stageClearLevel = 8)
         val user = userRepository.save(initUser)
-        val initUser2 = entityFactory.createNoPointUser()
+        val initUser2 = entityFactory.createUser(stageClearLevel = 8)
         val user2 = userRepository.save(initUser2)
 
         val command = StageClearCommand.Create(
@@ -75,5 +72,8 @@ class StageClearFacadeTest {
 
         redisTemplate.opsForZSet().reverseRangeWithScores(rankKey, 0, 1)
             ?.map { it.score }!!.toList()[0]?.let { assertThat(it).isEqualTo(600.0) }
+
+        assertThat(user.clearStageLevel).isEqualTo(9)
+        assertThat(user2.clearStageLevel).isEqualTo(10)
     }
 }

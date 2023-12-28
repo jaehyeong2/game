@@ -9,16 +9,17 @@ import org.springframework.boot.test.context.TestComponent
 @TestComponent
 class EntityFactory {
 
-    fun createNoPointUser(): User {
+    fun createUser(stageClearLevel: Int? = 1): User {
         return User(
             username = "kim",
             password = "123",
+            clearStageLevel = stageClearLevel!!,
             level = 2,
             exp = 100
         )
     }
 
-    fun createNoPointUser(money: Long): User {
+    fun createUser(money: Long, stageClearLevel: Int? = 1): User {
         return User(
             username = "kim",
             password = "123",
@@ -36,12 +37,13 @@ class EntityFactory {
         )
     }
 
-    fun createStage(chapter: Chapter): Stage {
+    fun createStage(chapter: Chapter, ordering: Int? = 10): Stage {
         return Stage(
             chapter = chapter,
             clearPoint = 300,
-            ordering = 1,
-            name = "stage 1"
+            ordering = ordering!!,
+            name = "stage 1",
+            exp = 3
         )
     }
 

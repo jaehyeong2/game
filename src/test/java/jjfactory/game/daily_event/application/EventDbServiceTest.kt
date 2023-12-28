@@ -58,7 +58,7 @@ class EventDbServiceTest {
     @Test
     fun `동일 이벤트 중복참여시 익셉션`() {
         //given
-        val initUser = entityFactory.createNoPointUser()
+        val initUser = entityFactory.createUser()
         val user = userRepository.save(initUser)
 
         //expected
@@ -73,7 +73,7 @@ class EventDbServiceTest {
     @Test
     fun `이벤트 참여 성공 시 user의 money가 오르고 로그가 저장된다`() {
         //given
-        val initUser = entityFactory.createNoPointUser(money = 0)
+        val initUser = entityFactory.createUser(money = 0)
         val user = userRepository.save(initUser)
 
         //when
@@ -87,7 +87,7 @@ class EventDbServiceTest {
     @Test
     fun `동시성 이슈가 없을 경우 재고만큼만 저장되고 익셉션`() {
         //given
-        val initUser = entityFactory.createNoPointUser()
+        val initUser = entityFactory.createUser()
         val user = userRepository.save(initUser)
 
         val cnt = event.stock + 20

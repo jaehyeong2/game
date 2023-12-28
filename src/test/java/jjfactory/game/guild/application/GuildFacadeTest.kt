@@ -37,7 +37,7 @@ class GuildFacadeTest(
             name = "kk길드"
         )
 
-        val initUser = entityFactory.createNoPointUser()
+        val initUser = entityFactory.createUser()
         val user = userRepository.save(initUser)
 
         //expected
@@ -58,7 +58,7 @@ class GuildFacadeTest(
 
         guildRepository.save(guild)
 
-        val initUser = entityFactory.createNoPointUser()
+        val initUser = entityFactory.createUser()
         val user = userRepository.save(initUser)
 
 
@@ -81,7 +81,7 @@ class GuildFacadeTest(
             name = "kk길드"
         )
 
-        val initUser = entityFactory.createNoPointUser()
+        val initUser = entityFactory.createUser()
         initUser.money = 50000
         val user = userRepository.save(initUser)
 

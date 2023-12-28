@@ -9,6 +9,7 @@ class Stage(
     @ManyToOne(fetch = FetchType.LAZY)
     val chapter: Chapter,
     var clearPoint: Int,
+    var exp: Int,
     val ordering: Int,
     val name: String,
 ) {
