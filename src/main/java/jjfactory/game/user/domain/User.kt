@@ -20,6 +20,11 @@ class User(
     var clearStageLevel: Int = 0
 ) {
 
+    fun increaseStageLevel(stageLevel: Int){
+        if (clearStageLevel+1 < stageLevel) throw RuntimeException()
+        clearStageLevel = stageLevel
+    }
+
     fun increaseExp(point: Int){
         if (point <= 0) throw IllegalArgumentException()
         exp += point

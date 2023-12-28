@@ -12,7 +12,7 @@ class UserTest {
     @BeforeEach
     fun init() {
         val entityFactory = EntityFactory()
-        user = entityFactory.createNoPointUser()
+        user = entityFactory.createUser(stageClearLevel = 10)
         user.money = 1000
     }
 
@@ -57,5 +57,17 @@ class UserTest {
             user.decreaseMoney(10000)
         }.isInstanceOf(RuntimeException::class.java)
 
+    }
+
+    @Test
+    fun `유저 스테이지 레벨 갱신 성공`() {
+        //given
+        println(user.clearStageLevel)
+
+        //when
+        user.increaseStageLevel(11)
+
+        //then
+        assertThat(user.clearStageLevel).isEqualTo(11)
     }
 }
