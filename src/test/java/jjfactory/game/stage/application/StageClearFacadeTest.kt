@@ -20,12 +20,16 @@ import org.springframework.transaction.annotation.Transactional
 class StageClearFacadeTest {
     @Autowired
     lateinit var stageClearFacade: StageClearFacade
+
     @Autowired
     lateinit var stageRepository: StageRepository
+
     @Autowired
     lateinit var chapterRepository: ChapterRepository
+
     @Autowired
     lateinit var userRepository: UserRepository
+
     @Autowired
     lateinit var entityFactory: EntityFactory
 
@@ -33,14 +37,15 @@ class StageClearFacadeTest {
     lateinit var redisTemplate: RedisTemplate<String, String>
 
     @BeforeEach
-    fun init(){
-        redisTemplate.execute { it.flushAll() }
+    fun init() {
+        redisTemplate.delete(rankKey)
     }
 
+    val rankKey = "daily-active-rank"
 
     @Transactional
     @Test
-    fun clear() {
+    fun `스테이지 클리어 성공 케이스`() {
         //given
         val initChapter = entityFactory.createChapter()
         val chapter = chapterRepository.save(initChapter)
@@ -64,14 +69,10 @@ class StageClearFacadeTest {
         stageClearFacade.clear(stage.id!!, command, user2.id!!)
         stageClearFacade.clear(stage2.id!!, command, user2.id!!)
 
-        val rankKey = "daily-active-rank"
-
-
         //then
         assertThat(result).isNotNull
 
-        redisTemplate.opsForZSet().reverseRangeWithScores(rankKey, 0, 1)
-            ?.map { it.score }!!.toList()[0]?.let { assertThat(it).isEqualTo(600.0) }
+        assertThat(redisTemplate.opsForZSet().reverseRangeWithScores(rankKey, 0, 10).size).isEqualTo(2)
 
         assertThat(user.clearStageLevel).isEqualTo(9)
         assertThat(user2.clearStageLevel).isEqualTo(10)

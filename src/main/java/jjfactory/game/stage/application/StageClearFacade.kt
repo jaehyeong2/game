@@ -25,12 +25,10 @@ class StageClearFacade(
         applicationEventPublisher.publishEvent(UserStageClearedEvent(userId, stage.exp, stage.ordering))
 
         val initStageClear = command.toEntity(stageId, userId)
-        //일간 랭킹
-        redisTemplate.opsForZSet().incrementScore(rankKey, userId.toString(), stage.clearPoint.toDouble())
-
-        //todo 저장에 실패하면?
         val stageClear = stageClearWriter.write(initStageClear)
 
+        //일간 랭킹
+        redisTemplate.opsForZSet().incrementScore(rankKey, userId.toString(), stage.clearPoint.toDouble())
         return stageClear.id!!
     }
 }
