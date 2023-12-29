@@ -16,6 +16,8 @@ class StageClearFacade(
     private val redisTemplate: RedisTemplate<String, String>,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) {
+    val rankKey = "daily-active-rank"
+
 
     @Transactional
     fun clear(stageId: Long, command: StageClearCommand.Create, userId: Long): Long {
@@ -24,7 +26,6 @@ class StageClearFacade(
 
         val initStageClear = command.toEntity(stageId, userId)
         //일간 랭킹
-        val rankKey = "daily-active-rank"
         redisTemplate.opsForZSet().incrementScore(rankKey, userId.toString(), stage.clearPoint.toDouble())
 
         //todo 저장에 실패하면?
