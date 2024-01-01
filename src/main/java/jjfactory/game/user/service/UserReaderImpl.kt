@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component
 class UserReaderImpl(
     private val userRepository: UserRepository
 ) : UserReader {
+    override fun existById(id: Long): Boolean {
+        return userRepository.existsById(id)
+    }
+
     override fun findById(id: Long): User {
         return userRepository.findByIdOrNull(id) ?: throw NotFoundException()
     }
