@@ -35,6 +35,10 @@ dependencies {
 	implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 	implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 
+	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.2.0")
+	implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.2.0")
+	implementation("com.linecorp.kotlin-jdsl:jpql-render:3.2.0")
+
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 	testImplementation("com.h2database:h2")
 }
